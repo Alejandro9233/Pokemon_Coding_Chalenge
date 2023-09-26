@@ -4,6 +4,6 @@ export function sortData(data, sort) {
 }
 
 export function filterData(data, filter) {
-  // TODO: Implement the filtering logic
-  return data;
+  const filteredPokemon = data.filter((p) => p.name.includes(filter));
+  return filteredPokemon;
 }
