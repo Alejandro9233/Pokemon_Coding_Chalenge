@@ -23,7 +23,7 @@ const sortDataByName = (data, key) => {
 };
 
 const sortDataByID = (data, key) => {
-  if (key === '-id') {
+  if (key.startsWith('-')) {
     return data.slice().reverse();
   } else {
     return data;
