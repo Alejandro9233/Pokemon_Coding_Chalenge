@@ -1,12 +1,12 @@
-export function sortData(data, key) {
+export const sortData = (data, key) => {
   if (key.includes('name')) {
     return sortDataByName(data, key);
   } else if (key.includes('id')) {
     return sortDataByID(data, key);
   }
-}
+};
 
-function sortDataByName(data, key) {
+const sortDataByName = (data, key) => {
   const isDescending = key.startsWith('-');
   const sortKey = isDescending ? key.substr(1) : key;
   return data.sort((a, b) => {
@@ -20,19 +20,17 @@ function sortDataByName(data, key) {
     }
     return 0;
   });
-}
+};
 
-function sortDataByID(data, key) {
+const sortDataByID = (data, key) => {
   if (key === '-id') {
     return data.slice().reverse();
   } else {
     return data;
   }
-}
+};
 
-
-
-export function filterData(data, filter) {
+export const filterData = (data, filter) => {
   const filteredPokemon = data.filter((p) => p.name.includes(filter));
   return filteredPokemon;
-}
+};

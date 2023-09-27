@@ -3,7 +3,7 @@ import { Input, Select } from 'antd';
 
 const { Option } = Select;
 
-function Filter({ onFilterChange, onSortChange }) {
+const Filter = ({ onFilterChange, onSortChange }) => {
   const [filterValue, setFilterValue] = useState('');
 
   const handleFilterChange = (event) => {
@@ -35,6 +35,6 @@ function Filter({ onFilterChange, onSortChange }) {
       </div>
     </div>
   );
-}
+};
 
 export default Filter;

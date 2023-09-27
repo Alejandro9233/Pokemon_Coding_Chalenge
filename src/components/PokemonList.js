@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { fetchData } from "../utils/api";
 import { sortData, filterData } from "../utils/helpers";
 import Filter from "./Filter";
@@ -34,8 +34,8 @@ const PokemonList = () => {
     return imageUrl + url.replace(pokemonUrl, "").replace("/", ".png");
   };
 
-  const filteredPokemon = filterData(pokemon, filter);
-  const sortedPokemon = sortData(filteredPokemon, sort);
+  const filteredPokemon = useMemo(() => filterData(pokemon, filter), [filter,pokemon]);
+  const sortedPokemon = useMemo(() => sortData(filteredPokemon, sort), [sort, filteredPokemon]);
 
   return (
     <div style={{ width: "1200px", margin: "0 auto", padding: "20px" }}>
