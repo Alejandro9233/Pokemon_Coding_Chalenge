@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchData } from "../utils/api";
 import { Card } from "antd";
-import { Grid } from "../../node_modules/antd/es/index";
 
 const PokemonDetail = ({ match }) => {
   const [pokemon, setPokemon] = useState(null);
