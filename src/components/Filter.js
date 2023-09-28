@@ -18,10 +18,10 @@ const Filter = ({ onFilterChange, onSortChange }) => {
         placeholder="Filter Pokémon by name" 
         value={filterValue}
         onChange={handleFilterChange}
-        style={{ width: '50%' }}
+        style={{ width: '50%',  }}
       />
       <div style={{ width: '40%' }}>
-        <span style={{ margin: '0 4% 0 0'}}>SORT BY</span>
+        <span style={{ margin: '0 4% 0 0', color: "#00aaff"}}>SORT BY</span>
         <Select 
           defaultValue="id" 
           onChange={onSortChange}

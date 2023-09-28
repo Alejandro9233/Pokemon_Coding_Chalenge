@@ -11,7 +11,7 @@ const { Title } = Typography;
 function App() {
   return (
     <Router>
-      <Layout style={{ minHeight: "100vh" }}>
+      <Layout style={{ minHeight: "100vh", background: "-webkit-linear-gradient(45deg, #900069d9, #b378ace1, #fff 100%)" }}>
         <Header style={{ background: "#00aaff", padding: 0 }}>
           <div
             style={{
@@ -48,7 +48,7 @@ function App() {
             <Route path="/pokemon/:id" component={PokemonDetail} />
           </Switch>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
+        <Footer style={{ textAlign: "center", background: "#00aaff", color: "#fff" }}>
           PokéApp ©2023 Created by ABDOTECH
         </Footer>
       </Layout>

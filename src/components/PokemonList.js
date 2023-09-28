@@ -12,7 +12,7 @@ const PokemonList = () => {
   const [sort, setSort] = useState("id");
 
   useEffect(() => {
-    fetchData("/pokemon")
+    fetchData("/pokemon", 151)
       .then((data) => {
         setPokemon(data.results);
       })
@@ -39,7 +39,7 @@ const PokemonList = () => {
   const sortedPokemon = useMemo(() => sortData(filteredPokemon, sort), [sort, filteredPokemon]);
 
   return (
-    <div style={{ width: "1200px", margin: "0 auto", padding: "20px", display: "flex" }}>
+    <div style={{ width: "1200px", margin: "0 auto", padding: "20px", display: "flex", background: "transparent"  }}>
         <SidebarComponent
           onFilterChange={handleFilterChange}
           onSortChange={handleSortChange}
@@ -51,7 +51,7 @@ const PokemonList = () => {
         />
         <List
           style={{
-            background: "#f5f5f5",
+            background: "#fff",
             borderRadius: "10px",
             padding: "20px",
           }}
@@ -67,8 +67,9 @@ const PokemonList = () => {
                   cover={<img alt={poke.name} src={getImageUrl(poke.url)} />}
                   bodyStyle={{ display: "flex" }}
                 >
+                  <Card.Meta title={poke.name} style={{ color: '#fff'}} />
                 </Card>
-                <Card.Meta title={poke.name} />
+                
               </Link>
             </List.Item>
           )}
