@@ -37,7 +37,7 @@ const PokemonList = () => {
 
   const filteredPokemon = useMemo(() => filterData(pokemon, filter), [filter,pokemon]);
   const sortedPokemon = useMemo(() => sortData(filteredPokemon, sort), [sort, filteredPokemon]);
-
+  
   return (
     <div style={{ width: "1200px", margin: "0 auto", padding: "20px", display: "flex", background: "transparent"  }}>
         <SidebarComponent
