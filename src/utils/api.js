@@ -1,6 +1,6 @@
-export const fetchData = async (endpoint, array_size = 20) => {
+export const fetchData = async (endpoint, arraySize = 151, arrayStartPoint = 0) => {
   try {
-    const response = await fetch(`https://pokeapi.co/api/v2${endpoint}/?limit=${array_size}&offset=0`);
+    const response = await fetch(`https://pokeapi.co/api/v2${endpoint}/?limit=${arraySize}&offset={arrayStartPoint}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

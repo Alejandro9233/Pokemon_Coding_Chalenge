@@ -30,7 +30,17 @@ const sortDataByID = (data, key) => {
   }
 };
 
-export const filterData = (data, filter) => {
+export const filterDataByName = (data, filter) => {
   const filteredPokemon = data.filter((p) => p.name.includes(filter));
   return filteredPokemon;
 };
+
+export const filterDataByIndex = (data, index) => {
+  if (index === '') {
+    return data;
+  }
+  const filteredData = data.filter((item, i) => i === parseInt(index-1));
+  return filteredData;
+};
+
+

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { fetchData } from "../utils/api";
-import { sortData, filterData } from "../utils/helpers";
+import { sortData, filterDataByName, filterDataByIndex } from "../utils/helpers";
 import Filter from "./Filter";
 import SidebarComponent from "./SideBar";
 import { List, Card } from "antd";
@@ -10,9 +10,13 @@ const PokemonList = () => {
   const [pokemon, setPokemon] = useState([]);
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("id");
+  const [filterID, setPokemonID] = useState("");
+  const [filterRangeStart, setPokemonRangeStart] = useState("")
+  const [filterRangeEnd, setPokemonRangeEnd] = useState("")
+  
 
   useEffect(() => {
-    fetchData("/pokemon", 151)
+    fetchData("/pokemon")
       .then((data) => {
         setPokemon(data.results);
       })
@@ -27,6 +31,18 @@ const PokemonList = () => {
     setSort(sort);
   };
 
+  const handleFilterIDChange = (filterID) => {
+    setPokemonID(filterID)
+  };
+
+  const handleFilterRangeStartChange = (filterRangeStart) => {
+    setPokemonRangeEnd(filterRangeStart)
+  };
+
+  const handleFilterRangeEndtChange = (filterRangeEnd) => {
+    setPokemonID(filterRangeEnd)
+  };
+
   const getImageUrl = (url) => {
     const imageUrl =
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
@@ -35,13 +51,14 @@ const PokemonList = () => {
     return imageUrl + url.replace(pokemonUrl, "").replace("/", ".png");
   };
 
-  const filteredPokemon = useMemo(() => filterData(pokemon, filter), [filter,pokemon]);
-  const sortedPokemon = useMemo(() => sortData(filteredPokemon, sort), [sort, filteredPokemon]);
-  
+  const filteredPokemonName = useMemo(() => filterDataByName(pokemon, filter), [filter,pokemon]);
+  const sortedPokemon = useMemo(() => sortData(filteredPokemonName, sort), [sort, filteredPokemonName]);
+  const filteredPokemonID = useMemo(() => filterDataByIndex(sortedPokemon, filterID), [filterID, sortedPokemon]);
+  console.log(filteredPokemonID);
   return (
     <div style={{ width: "1200px", margin: "0 auto", padding: "20px", display: "flex", background: "transparent"  }}>
         <SidebarComponent
-          onFilterChange={handleFilterChange}
+          onFilterChange={handleFilterIDChange}
           onSortChange={handleSortChange}
         />
       <div style={{ width: '100%' }}>
@@ -56,7 +73,7 @@ const PokemonList = () => {
             padding: "20px",
           }}
           grid={{ gutter: 16, column: 4 }}
-          dataSource={sortedPokemon}
+          dataSource={filteredPokemonID}
           renderItem={(poke) => (
             <List.Item>
               <Link to={`/pokemon/${poke.name}`}>

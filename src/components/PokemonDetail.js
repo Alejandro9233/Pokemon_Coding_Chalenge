@@ -32,7 +32,7 @@ const PokemonDetail = ({ match }) => {
         <h1 style={{ color:'#fff', marginLeft: '50%' }}> #{pokemon.id} </h1>
       </div>
       <div style={{ width: '1200px', display: "flex"}}>
-        <div id="pokemonIMG" style={{ width: "49%", display: "flex", justifyContent: 'center' }}>
+        <div id="pokemonIMG" style={{ width: "49%", justifyContent: 'center', textAlign: 'center', fontSize: 'x-large' }}>
           <Card
             style={{ width: '80%', background: "-webkit-linear-gradient(45deg, rgba(213, 15, 61, 0.6), rgba(13, 17, 198, 0.69) 100%)",
             borderRadius: "10px", border: 'solid 10px #fff'}}
@@ -40,6 +40,7 @@ const PokemonDetail = ({ match }) => {
           >
           </Card>
         </div>
+        
         <div id="pokemonStats" style={{ width: "49%", justifyContent: 'center', textAlign: 'center', fontSize: 'x-large' }}>
           <div id="pokemonDescription" style={{ background: '#00aaff', borderRadius: "10px", border: 'solid 10px #fff', width: '100%', marginBottom: '4%' }}>
           <h3 style={{ color: '#900069d9' }}>About</h3>

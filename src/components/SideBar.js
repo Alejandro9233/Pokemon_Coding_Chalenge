@@ -6,7 +6,7 @@ const { Sider } = Layout;
 
 const SidebarComponent = ({ onFilterChange, onSortChange }) => {
   const [filterValue, setFilterValue] = useState('');
-
+  
   const handleFilterChange = (event) => {
     const value = event.target.value;
     setFilterValue(value);
@@ -30,6 +30,7 @@ const SidebarComponent = ({ onFilterChange, onSortChange }) => {
         onChange={onSortChange}
         style={{ width: '50%' }}
       > 
+        <Option value=""> All </Option>
         <Option value="bug"> Bug </Option>
         <Option value="dragon">Dragon </Option>
         <Option value="fairy">Fairy </Option>
