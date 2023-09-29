@@ -4,43 +4,35 @@ import { sortData, filterDataByName, filterDataByIndex } from "../utils/helpers"
 import Filter from "./Filter";
 import SidebarComponent from "./SideBar";
 import { List, Card } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const PokemonList = () => {
   const [pokemon, setPokemon] = useState([]);
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("id");
   const [filterID, setPokemonID] = useState("");
   const [type, setType] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
     fetchData("/pokemon")
       .then((data) => {
-        setPokemon(data.results);
+        const pokemonPromises = data.results.map(pokemon => {
+          return fetch(pokemon.url)
+            .then(response => response.json());
+        });
+
+        Promise.all(pokemonPromises)
+          .then(pokemonList => {
+            if (type !== "") {
+              const filteredPokemon = pokemonList.filter(p => p.types.some(t => t.type.name === type));
+              setPokemon(filteredPokemon);
+            } else {
+              setPokemon(pokemonList);
+            }
+          });
       })
       .catch((error) => console.error(error));
-  }, [type]);
-
-  useEffect(() => {
-    // Map over the Pokemon array and make a fetch request for each Pokemon
-    const pokemonPromises = pokemon.map(pokemon => {
-      return fetch(pokemon.url)
-        .then(response => response.json());
-    });
-  
-    // Wait for all fetch requests to complete and update the Pokemon list
-    Promise.all(pokemonPromises)
-      .then(pokemonList => {
-        if (type !== "") {
-          // Filter the Pokemon list based on the selected type
-          const filteredPokemon = pokemonList.filter(p => p.types.some(t => t.type.name === type));
-          setPokemon(filteredPokemon);
-        } else {
-          // If no type is selected, set the Pokemon list to all fetched Pokemon
-          setPokemon(pokemonList);
-        }
-      });
-  }, [type, pokemon]);
-
+  }, [type, location.pathname]);
 
   const handleFilterChange = (filter) => {
     setFilter(filter);
@@ -57,20 +49,6 @@ const PokemonList = () => {
   const handleTypeChange = (value) => {
     setType(value);
   };
-
-  const getImageUrl = (url) => {
-    if (!url) {
-      console.error('URL is undefined');
-      return;
-    }
-  
-    const imageUrl =
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
-    const pokemonUrl = "https://pokeapi.co/api/v2/pokemon/";
-  
-    return imageUrl + url.replace(pokemonUrl, "").replace("/", ".png");
-  };
-  
 
   const filteredPokemonName = useMemo(() => filterDataByName(pokemon, filter), [
     filter,
